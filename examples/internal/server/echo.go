@@ -44,3 +44,8 @@ func (s *echoServer) EchoPatch(ctx context.Context, msg *examples.DynamicMessage
 	glog.Info(msg)
 	return msg, nil
 }
+
+func (s *echoServer) EchoTestOneOf(ctx context.Context, msg *examples.TestMessage) (*examples.TestMessage, error) {
+	glog.Info(msg)
+	return msg, nil
+}

@@ -538,6 +538,63 @@
           "EchoService"
         ]
       }
+    },
+    "/v1/example/echo_test_one_of": {
+      "get": {
+        "operationId": "EchoService_EchoTestOneOf",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/examplepbTestMessage"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "test1.id1",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "test1.name1",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "test2.id1",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "test2.name1",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EchoService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -607,6 +664,45 @@
         }
       },
       "description": "SimpleMessage represents a simple message sent to the Echo service."
+    },
+    "examplepbTestMessage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "test1": {
+          "$ref": "#/definitions/examplepbTestMessage1"
+        },
+        "test2": {
+          "$ref": "#/definitions/examplepbTestMessage2"
+        }
+      }
+    },
+    "examplepbTestMessage1": {
+      "type": "object",
+      "properties": {
+        "id1": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name1": {
+          "type": "string"
+        }
+      }
+    },
+    "examplepbTestMessage2": {
+      "type": "object",
+      "properties": {
+        "id1": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name1": {
+          "type": "string"
+        }
+      }
     },
     "protobufAny": {
       "type": "object",

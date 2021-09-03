@@ -56,6 +56,31 @@ func TestEcho(t *testing.T) {
 	}
 }
 
+func TestEchoOneOf(t *testing.T) {
+	if testing.Short() {
+		t.Skip()
+		return
+	}
+	// error doesn't occur.
+	// apiURL := "http://localhost:8088/v1/example/echo_test_one_of?test1.id1=1&test1.name1=foo"
+	resp, err := http.Get(apiURL)
+	if err != nil {
+		t.Errorf("http.Get(%q) failed with %v; want success", apiURL, err)
+		return
+	}
+	defer resp.Body.Close()
+	buf, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Errorf("ioutil.ReadAll(resp.Body) failed with %v; want success", err)
+		return
+	}
+	var received examplepb.TestMessage
+	if err := marshaler.Unmarshal(buf, &received); err != nil {
+		t.Errorf("marshaler.Unmarshal(%s, msg) failed with %v; want success", buf, err)
+		return
+	}
+}
+
 func TestEchoPatch(t *testing.T) {
 	if testing.Short() {
 		t.Skip()

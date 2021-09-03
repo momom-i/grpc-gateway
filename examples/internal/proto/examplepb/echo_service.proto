@@ -35,6 +35,24 @@ message SimpleMessage {
 	}
 }
 
+message TestMessage {
+	int64 id = 1;
+	oneof test {
+		TestMessage1 test1 = 2;
+		TestMessage2 test2 = 3;
+	}
+}
+message TestMessage1 {
+	int64 id1 = 1;
+	string name1 = 2;
+}
+
+message TestMessage2 {
+	int64 id1 = 1;
+	string name1 = 2;
+}
+
+
 // DynamicMessage represents a message which can have its structure
 // built dynamically using Struct and Values.
 message DynamicMessage {
@@ -88,6 +106,12 @@ service EchoService {
 		option (google.api.http) = {
 			patch: "/v1/example/echo_patch"
 			body: "body"
+		};
+	}
+
+	rpc EchoTestOneOf(TestMessage) returns (TestMessage){
+		option (google.api.http) = {
+			get: "/v1/example/echo_test_one_of"
 		};
 	}
 }
